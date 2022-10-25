@@ -4,8 +4,8 @@
   "description": "hola",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js"
-   
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,9 +13,20 @@
   "dependencies": {
     "colors": "^1.4.0",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.25.3",
+    "sequelize-cli": "^6.5.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/svanessar/bootcamps.git"
+  },
+  "bugs": {
+    "url": "https://github.com/svanessar/bootcamps/issues"
+  },
+  "homepage": "https://github.com/svanessar/bootcamps#readme"
 }
