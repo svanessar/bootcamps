@@ -4,11 +4,11 @@ const router = express.Router()
 //establecer la rutas bootcamps
 
 router.get('/',(req,res)=>{
-        res.status(200).json(
-            {
-                "message" : "aqui se van a mostrar todos los bootcamps"
-            }
-        )
+       res.status(200).json(
+       {
+     "message" : "aqui se van a mostrar todos los bootcamps"
+       }
+     )
     } )
 
 //obtener recurso por id
