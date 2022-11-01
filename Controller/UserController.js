@@ -53,10 +53,20 @@ exports.actualizarUser=async (req,res)=>{
         )
     }
     //delete
-exports.deleteUser= (req,res)=>{
+exports.deleteUser=async (req,res)=>{
+    //buscar el user 
+    const u =await User.findByPk(req.params.id)
+    //borrar user por id 
+    await User.destroy({
+        where: {
+          id: req.params.id
+        }
+      });
+      //reponse
     res.status(200).json(
         {
-            "message" : `aqui se va a eliminar el usuario por id :${req.params.id}`
+            "success": true,
+            "data": u,
         } 
         )
 }
