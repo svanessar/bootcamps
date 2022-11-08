@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "662fae10-b380-4612-8f0a-01d847f1affc",
+		"_postman_id": "788eacae-2ea9-45ed-b5f9-11fe214aa2cf",
 		"name": "expres devcamp",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -104,7 +104,20 @@
 					"name": "traer todos los usuarios",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						}
 					},
 					"response": []
 				},
@@ -112,7 +125,21 @@
 					"name": "traer user por id",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/user/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"4"
+							]
+						}
 					},
 					"response": []
 				},
@@ -120,19 +147,34 @@
 					"name": "actualizar user por id",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"vvvvv\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/user/3",
+							"raw": "http://localhost:3000/api/v1/user/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "5000",
+							"port": "3000",
 							"path": [
 								"api",
 								"v1",
 								"user",
-								"3"
+								"5"
 							]
 						}
 					},
@@ -168,20 +210,26 @@
 							{
 								"key": "Content-Type",
 								"value": "aplication/json",
-								"type": "default"
+								"type": "default",
+								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"Carlos\",\r\n    \"email\" : \"carlo@misena.edu.co\",\r\n    \"password\" : \"2465\"\r\n}"
+							"raw": "{\r\n            \"name\": \"vanessa\",\r\n            \"email\": \"sv@gmaiul.com\",\r\n            \"password\": \"133344\"\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/user",
+							"raw": "http://localhost:3000/api/v1/user",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "5000",
+							"port": "3000",
 							"path": [
 								"api",
 								"v1",
@@ -195,7 +243,32 @@
 					"name": "actualizarUser",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar por id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/user/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"3"
+							]
+						}
 					},
 					"response": []
 				}

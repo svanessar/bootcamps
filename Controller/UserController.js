@@ -1,56 +1,139 @@
 //objecto de conexion 
 const sequelize = require('../config/seq')
 //DataTypes
-const{DataTypes} =require('sequelize')
+const{DataTypes, ValidationError} =require('sequelize')
 //traer el modelo
 const UserModel = require('../models/user')
 //crear el objecto usuario
 const User= UserModel(sequelize, DataTypes)
-
+//gget: obtener datos 
 exports.traerUser=async(req,res)=>{
-    const users = await User.findAll();
-    res.status(200).json(
-        {
-            "success": true,
-            "data": users,
-        }
-    )
+    try {
+        const users = await User.findAll();
+        res.status(200).json(
+            {
+                "success": true,
+                "data": users,
+            }
+        )
+    } catch (error) {
+        res
+    .status(500)
+    .json({
+        "success":false,
+        "errors": "error desconocido"
+    })
+    }
+   
 } 
-exports.traerUserPorId=async(req,res)=>{
-    const userId=User.findByPk(req.params.id)
-    res.status(200).json(
-        {
-            "success": true,
-            "data": userId,
+//get: obtener datos por id
+exports.traerUserPorId = async (req, res)=>{
+    try {
+        const userId = await User.findByPk(req.params.id)
+        //si usuario no existe
+        if(!userId){
+           res.status(422).json(
+            {
+                "success": false,
+                "errors":[
+                    "usuario no existe"
+                ]
+            }
+           )
         }
-    )
-} 
+        res.status(200).json(
+            {
+                "succes" : true,
+                "data" : userId
+            }
+        )
+    } catch (error) {
+        res
+        .status(500)
+        .json({
+           "sucess":false,
+           "errors": "error de servidor"
+        })
+    }
+ 
+}
 
 //POST : crear un nuevo recurso
 exports.crearUser=async(req,res)=>{
-    const newUser = await User.create(req.body);
-    res.status(201).json(
-       {
-        "success": true,
-        "data": newUser,
-       }
-    )
+    try{
+        const newUser = await User.create(req.body);
+        res.status(201).json({
+            "success": true,
+            "data": newUser,
+           })
     }
+    catch(error){
+        //poner los mensajes de errores
+        if(error instanceof ValidationError){
+        const errores =error.errors.map((e)=> e.message)
+        //llevar error a response
+        res
+        .status(422)
+        .json({
+            "success":false,
+            "errors": errores
+        })
+       
+    }
+   else{
+    //error servidor
+    res
+    .status(500)
+    .json({
+        "success":false,
+        "errors": "error desconocido"
+    })
+   }
+    }
+}
     //Put - PATCH:actualizar
 exports.actualizarUser=async (req,res)=>{
-    await User.update(req.body, {
-        where: {
-          id: req.params.id
-        }
-      });
-      //consultar datos actualizados
-      const upUser =await User.findByPk(req.params.id)
+    try {
+        const upUser =await User.findByPk(req.params.id)   
+        if(!upUser){
+            //usuario no encontrado
+            res.status(422).json(
+                {
+                    "success": false,
+                    "errors":[
+                        "usuario no existe"
+                    ]
+                }
+               )
+            
+        }else{
+            //actualizar por id
+            await User.update(req.body, {
+                where: {
+                  id: req.params.id
+                }
+              });  
+              //seleccionar usuario actualizados
+              //consultar datos actulizados 
+              const userACt =await User.findByPk(req.params.id)
+              //enviar response con usuario actulizado
+               
     res.status(200).json(
         {
             "success": true,
-            "data": upUser,
+            "data": userACt,
            }
         )
+        }
+    } catch (error) {
+        res
+        .status(500)
+        .json({
+           "sucess":false,
+           "errors": "error de servidor"
+        })
+    }
+    
     }
     //delete
 exports.deleteUser=async (req,res)=>{

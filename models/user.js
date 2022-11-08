@@ -14,9 +14,63 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isAlpha:{
+        args: true,
+        msg:'el nombre solo debe tener letras'
+        } ,
+        notEmpty: {
+          args: true,
+          msg:'no puede ir vacio'
+        },
+        notNull: {
+          args: true,
+          msg:'no puede ir vacio'
+        },
+      }
+    },
+    email:  {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail:{
+        args: true,
+        msg:'debe contener estructura email'
+        } ,
+        notEmpty: {
+          args: true,
+          msg:'no puede ir vacio'
+        },
+        notNull: {
+          args: true,
+          msg:'no puede ir vacio'
+        },
+      }
+    },
+    password:{
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        len: {
+        args: [5,10],
+        msg:'el password debe contener una longitud de 5 a 10'
+        } ,
+        notEmpty: {
+          args: true,
+          msg:'no puede ir vacio'
+        },
+        notNull: {
+          args: true,
+          msg:'no puede ir vacio'
+        },
+      }
+    },
   }, {
     sequelize,
     modelName: 'User',
